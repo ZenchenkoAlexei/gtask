@@ -2,13 +2,12 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.generics import CreateAPIView
-from .models import UserProfile, Location, Visit
+from .models import User, Location, Visit
 from .serializers import UserSerializer, LocationSerializer, VisitSerializer
 
 
-
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = UserProfile.objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
 

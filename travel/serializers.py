@@ -1,11 +1,10 @@
 from rest_framework import serializers
+from .models import User, Location, Visit
 
-from .models import UserProfile, Location, Visit
 
-
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = UserProfile
+        model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'gender', 'birth_day', 'country')
 
 

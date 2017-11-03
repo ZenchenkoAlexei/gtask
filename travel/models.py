@@ -1,12 +1,11 @@
 from django.db import models
 from datetime import date
 from django.utils import timezone
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(get_user_model())
+class User(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     username = models.CharField(max_length=50)
     email = models.EmailField(blank=False)
@@ -28,7 +27,7 @@ class Location(models.Model):
 class Visit(models.Model):
     CHOICES = [(i, i) for i in range(11)]
     id = models.AutoField(primary_key=True, unique=True)
-    user_id = models.ForeignKey(UserProfile)
+    user_id = models.ForeignKey(User)
     location_id = models.ForeignKey(Location)
     date = models.DateTimeField(default=timezone.now)
     ratio = models.IntegerField(choices=CHOICES)
