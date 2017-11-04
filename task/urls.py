@@ -21,8 +21,8 @@ from travel.views import UserViewSet, LocationViewSet, VisitViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-router.register(r'location', LocationViewSet)
-router.register(r'visit', VisitViewSet)
+router.register(r'locations', LocationViewSet)
+router.register(r'visits', VisitViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
