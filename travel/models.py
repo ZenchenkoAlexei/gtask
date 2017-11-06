@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from datetime import date
 from django.utils import timezone
@@ -5,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 class UserProfile(models.Model):
-    # user = models.OneToOneField(User, blank=True, default=None)
+    user = models.ForeignKey(User, primary_key=True)
     username = models.CharField(max_length=50, blank=False)
     email = models.EmailField(blank=False)
     first_name = models.CharField(max_length=50)
@@ -16,16 +17,16 @@ class UserProfile(models.Model):
 
 
 class Location(models.Model):
-    id = models.AutoField
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
-    name = models.CharField(primary_key=True, max_length=50)
+    name = models.CharField(max_length=50, primary_key=True)
     description = models.TextField(max_length=250)
 
 
 class Visit(models.Model):
     CHOICES = [(i, i) for i in range(11)]
-    # user_id = models.OneToOneField(UserProfile, null=True, blank=True)
-    location_id = models.ForeignKey(Location, null=True, blank=True)
+    location_name = models.ForeignKey(Location, blank=False, default='1')
+    # user = models.OneToOneField(User, default=settings.AUTH_USER_MODEL)
+    # user = models.ForeignKey(User)
     date = models.DateTimeField(default=timezone.now)
     ratio = models.IntegerField(choices=CHOICES)
