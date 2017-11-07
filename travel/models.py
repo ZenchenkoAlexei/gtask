@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, primary_key=True)
+    user = models.OneToOneField(User, primary_key=True)
     username = models.CharField(max_length=50, blank=False)
     email = models.EmailField(blank=False)
     first_name = models.CharField(max_length=50)
@@ -26,7 +26,6 @@ class Location(models.Model):
 class Visit(models.Model):
     CHOICES = [(i, i) for i in range(11)]
     location_name = models.ForeignKey(Location, blank=False, default='1')
-    # user = models.OneToOneField(User, default=settings.AUTH_USER_MODEL)
-    # user = models.ForeignKey(User)
+    user = models.ManyToManyField(User, default=User.is_active)
     date = models.DateTimeField(default=timezone.now)
     ratio = models.IntegerField(choices=CHOICES)
