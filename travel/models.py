@@ -17,6 +17,7 @@ class UserProfile(models.Model):
 
 
 class Location(models.Model):
+
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     name = models.CharField(max_length=50, primary_key=True)
@@ -25,7 +26,7 @@ class Location(models.Model):
 
 class Visit(models.Model):
     CHOICES = [(i, i) for i in range(11)]
-    location_name = models.ForeignKey(Location, blank=False, default='1')
+    location = models.ForeignKey(Location, blank=False, default='1')
     user = models.ManyToManyField(User, default=User.is_active)
     date = models.DateTimeField(default=timezone.now)
     ratio = models.IntegerField(choices=CHOICES)
