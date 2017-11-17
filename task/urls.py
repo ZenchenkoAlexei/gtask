@@ -18,6 +18,7 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from travel.views import UserViewSet, LocationViewSet, VisitViewSet
 from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -26,7 +27,11 @@ router.register(r'visit', VisitViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^api-token-auth/', obtain_jwt_token),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^login/', obtain_jwt_token),
+    url(r'^token-refresh/', refresh_jwt_token),
+    url(r'^token-verify/', verify_jwt_token),
+    # url(r'^register/$', AuthRegister.as_view()),
+
+    # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^', include(router.urls))
 ]
