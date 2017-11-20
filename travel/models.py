@@ -34,7 +34,7 @@ class Visit(models.Model):
     CHOICES = [(i, i) for i in range(11)]
     # location = models.ForeignKey(Location, blank=False, default='1')
     # user = models.ManyToManyField(User, default=User.is_active)
-    user_id = models.ForeignKey(UserProfile, on_delete=models.CASCADE, default=User.is_active)
+    user_id = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE, default='')
     date = models.DateTimeField(default=timezone.now)
     ratio = models.IntegerField(choices=CHOICES)

@@ -18,4 +18,5 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
 class VisitSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Visit
-        fields = ('location_id', 'date', 'ratio')
+        fields = ('user_id', 'location_id', 'date', 'ratio')
+        read_only_fields = ('user_id',)
