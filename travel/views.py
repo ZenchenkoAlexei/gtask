@@ -35,6 +35,7 @@ class VisitViewSet(viewsets.ModelViewSet):
     queryset = Visit.objects.all()
     serializer_class = VisitSerializer
 
+
 class AuthRegister(APIView):
     """
     Register a new user.

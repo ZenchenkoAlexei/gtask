@@ -16,22 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from rest_framework import routers
-from travel.views import UserViewSet, LocationViewSet, VisitViewSet
+from travel.views import UserViewSet, LocationViewSet, VisitViewSet, AuthRegister
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-router.register(r'location', LocationViewSet)
-router.register(r'visit', VisitViewSet)
+router.register(r'locations', LocationViewSet)
+router.register(r'visits', VisitViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^login/', obtain_jwt_token),
+    url(r'^sign_in_jwt/', obtain_jwt_token),
     url(r'^token-refresh/', refresh_jwt_token),
     url(r'^token-verify/', verify_jwt_token),
-    # url(r'^register/$', AuthRegister.as_view()),
-
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^register/$', AuthRegister.as_view()),
+    url(r'^sign_in/', include('rest_framework.urls', namespace='rest_framework')),
+ #   url(r'^sing_in2/$', include('django.contrib.auth.views')),
     url(r'^', include(router.urls))
 ]
