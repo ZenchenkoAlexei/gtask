@@ -23,7 +23,7 @@ class Location(models.Model):
 
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
-    name = models.CharField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=50, primary_key=False)
     description = models.TextField(max_length=250)
 
     def __str__(self):
@@ -34,10 +34,11 @@ class Visit(models.Model):
     CHOICES = [(i, i) for i in range(11)]
     # location = models.ForeignKey(Location, blank=False, default='1')
     # user = models.ManyToManyField(User, default=User.is_active)
-    user_id = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(UserProfile, on_delete=models.CASCADE,)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE, default='')
     date = models.DateTimeField(default=timezone.now)
     ratio = models.IntegerField(choices=CHOICES)
+
 
     def __str__(self):
         return 'visit id: ' + str(self.id)
