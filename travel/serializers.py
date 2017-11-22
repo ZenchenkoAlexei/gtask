@@ -1,5 +1,4 @@
 from rest_framework import serializers
-# from django.contrib.auth.models import User
 from .models import UserProfile, Location, Visit
 
 
@@ -14,8 +13,8 @@ class LocationSerializer(serializers.HyperlinkedModelSerializer):
         model = Location
         fields = ('country', 'city', 'name', 'description', 'id')
 
+
 class VisitSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Visit
         fields = ('user_id', 'location_id', 'date', 'ratio')
-        #read_only_fields = ('user_id',)

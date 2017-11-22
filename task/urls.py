@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from rest_framework import routers
-from travel.views import UserViewSet, LocationViewSet, VisitViewSet, AuthRegister, detail
+from travel.views import UserViewSet, LocationViewSet, VisitViewSet, AuthRegister, detail_user, detail_location, mark_visited
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from django.contrib.auth import views as auth_views
@@ -26,11 +26,12 @@ router.register(r'locations', LocationViewSet)
 router.register(r'visits', VisitViewSet)
 
 urlpatterns = [
-    url(r'^users/(?P<question_id>[0-9]+)/ratio$', detail, name='detail'),
+    url(r'^users/(?P<user_id>[0-9]+)/ratio$', detail_user, name='detail_user'),
+    url(r'^locations/(?P<location_id>[0-9]+)/ratio$', detail_location, name='detail_location'),
+    url(r'^locations/(?P<location_id>[0-9]+)/visit$', mark_visited, name='mark_visited'),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
-
     url(r'^admin/', admin.site.urls),
     url(r'^sign_in_jwt/', obtain_jwt_token),
     url(r'^token-refresh/', refresh_jwt_token),
