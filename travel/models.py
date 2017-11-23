@@ -1,24 +1,9 @@
-from django.db import models
-from datetime import date
 from django.utils import timezone
 from django.contrib.auth.models import User
-
-from django.dispatch import receiver
-from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-
-
+from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
-
-from django.db import models
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-
-
 
 
 class UserProfile(models.Model):
@@ -33,7 +18,6 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user
-
 
 
 class Location(models.Model):
@@ -56,4 +40,3 @@ class Visit(models.Model):
 
     def __str__(self):
         return 'visit id: ' + str(self.id)
-
