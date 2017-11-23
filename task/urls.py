@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from rest_framework import routers
-from travel.views import UserViewSet, LocationViewSet, VisitViewSet, AuthRegister, detail_user, detail_location, mark_visited
+from travel.views import UserViewSet, LocationViewSet, VisitViewSet, \
+    AuthRegister, detail_user, detail_location, mark_visited, create_user
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from django.contrib.auth import views as auth_views
@@ -39,5 +40,6 @@ urlpatterns = [
     url(r'^register/$', AuthRegister.as_view()),
     url(r'^sign_in/', include('rest_framework.urls', namespace='rest_framework')),
  #   url(r'^sing_in2/$', include('django.contrib.auth.views')),
+    url(r'^signup/$', create_user, name='create_user'),
     url(r'^', include(router.urls))
 ]

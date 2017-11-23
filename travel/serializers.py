@@ -6,7 +6,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('user_id', 'username', 'first_name', 'last_name', 'email', 'gender', 'birth_day', 'country')
-
+        read_only_fields = ('user_id', 'username', 'first_name', 'last_name', 'email', 'gender', 'birth_day', 'country')
 
 class LocationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
