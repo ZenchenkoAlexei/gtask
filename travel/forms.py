@@ -30,12 +30,12 @@ from django.shortcuts import render_to_response
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'password')
+        fields = ('username', 'email', 'password', 'first_name', 'last_name')
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('birth_day','country')
+        fields = ('birth_day','country', 'username', 'email', 'first_name', 'last_name')
 
 # #
 # # #old

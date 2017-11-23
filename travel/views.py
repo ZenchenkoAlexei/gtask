@@ -13,6 +13,8 @@ from .serializers import UserSerializer
 from .models import UserProfile
 from django.http import JsonResponse
 
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect, HttpResponse
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -131,7 +133,7 @@ def create_user11(request):
     else:
         #user_form = UserForm(instance=request.user)
         #profile_form = UserProfileForm(instance=request.user.profile)
-        return HttpResponse("Fail. FAIL! Go fuck yourself.")
+        return HttpResponse("Fail. FAIL!")
 #    return HttpResponse("Fail. Go fuck yourself.")
 
 @csrf_exempt
@@ -144,6 +146,7 @@ def create_user11(request):
         return HttpResponse("Invalid")
     else:
         return HttpResponse("Not Post!")
+
 @csrf_exempt
 def create_user(request):
 
@@ -198,4 +201,43 @@ def create_user(request):
         profile_form = UserProfileForm()
 
     # Render the template depending on the context.
-    return HttpResponse("No luck!")
+    return HttpResponse("Success!")
+
+@csrf_exempt
+def sign_in(request):
+
+    # If the request is a HTTP POST, try to pull out the relevant information.
+    if request.method == 'POST':
+        # Gather the username and password provided by the user.
+        # This information is obtained from the login form.
+                # We use request.POST.get('<variable>') as opposed to request.POST['<variable>'],
+                # because the request.POST.get('<variable>') returns None, if the value does not exist,
+                # while the request.POST['<variable>'] will raise key error exception
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Use Django's machinery to attempt to see if the username/password
+        # combination is valid - a User object is returned if it is.
+        user = authenticate(username=username, password=password)
+
+        # If we have a User object, the details are correct.
+        # If None (Python's way of representing the absence of a value), no user
+        # with matching credentials was found.
+        if user:
+            # Is the account active? It could have been disabled.
+            if user.is_active:
+                # If the account is valid and active, we can log the user in.
+                # We'll send the user back to the homepage.
+                login(request, user)
+                return HttpResponseRedirect('/')
+        else:
+            # Bad login details were provided. So we can't log the user in.
+            return HttpResponse("Wrong Creds")
+
+    # The request is not a HTTP POST, so display the login form.
+    # This scenario would most likely be a HTTP GET.
+    else:
+        # No context variables to pass to the template system, hence the
+        # blank dictionary object...
+        pass
+
