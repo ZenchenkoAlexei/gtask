@@ -33,12 +33,9 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user
- #    def __unicode__(self):
- #        return u"%s" % self.user
- # #start
 
 
-#end
+
 class Location(models.Model):
 
     country = models.CharField(max_length=50)

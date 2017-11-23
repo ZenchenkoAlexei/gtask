@@ -96,56 +96,18 @@ def detail_location(request, location_id):
     list_n = Visit.objects.filter(location_id_id=location_id).values_list('user_id_id', flat=True).distinct()
     return JsonResponse({"count": count_n, 'avg': list(avg_n.values())[0], 'users': list(list_n)})
 
-#@csrf_protect
-#@ensure_csrf_cookie
 @csrf_exempt
 def mark_visited(request, location_id):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     ratio_input = body['ratio']
     curent_id = request.user.id
-    # if request.META.get('CONTENT_TYPE', '').lower() == 'application/json' and len(request.body) > 0:
-    #     try:
-    #         body_data = json.loads(request.body)
-    #     except Exception as e:
-    #         return HttpResponseBadRequest(json.dumps({'error': 'Invalid request: {0}'.format(str(e))}),
-    #                                       content_type="application/json")
     v1 = Visit(date=datetime.datetime.now(), ratio=ratio_input, user_id_id=curent_id, location_id_id=location_id)
     v1.save()
-    return HttpResponse("Added. Go fuck yourself." + str(datetime.datetime.now()))
+    return HttpResponse("Added." + str(datetime.datetime.now()))
 
 
 
-# @login_required
-# @transaction.atomic
-
-@csrf_exempt
-def create_user11(request):
-    if request.method == 'POST':
-        user_form = UserForm(request.POST)#, instance=request.user)
-        user_profile_form = UserProfileForm(request.POST)#, instance=request.user.profile)
-        if user_form.is_valid() and user_profile_form.is_valid():
-            user_form.save()
-            user_profile_form.save()
-            return HttpResponse("Added. Go fuck yourself.")
-        else:
-            return HttpResponse("NO! Go fuck yourself.")
-    else:
-        #user_form = UserForm(instance=request.user)
-        #profile_form = UserProfileForm(instance=request.user.profile)
-        return HttpResponse("Fail. FAIL!")
-#    return HttpResponse("Fail. Go fuck yourself.")
-
-@csrf_exempt
-def create_user11(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("User created successfully!")
-        return HttpResponse("Invalid")
-    else:
-        return HttpResponse("Not Post!")
 
 @csrf_exempt
 def create_user(request):
